@@ -17,18 +17,24 @@
 <%@page import="connection.connectDB"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <% User auth = (User) request.getSession().getAttribute("auth");
     if (auth != null) {
         request.setAttribute("auth", auth);
     }
     
-ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart_list");
-List<Cart> cartProduct = null;
+    ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart_list");
+    List<Cart> cartProduct = null;
+        
 if(cart_list != null){
     ProductDAO pdao = new ProductDAO();
     cartProduct = pdao.getCarts(cart_list);
+    int total = pdao.getTotalCartPrice(cart_list);
     request.setAttribute("cart_list", cart_list);
+    request.setAttribute("total", total);
     }
+    
+    
     
     Locale locale = new Locale("vi", "VN");
     NumberFormat format = NumberFormat.getCurrencyInstance(locale);
@@ -53,11 +59,12 @@ if(cart_list != null){
         }
     </style>
     <body>
+        <fmt:setLocale value='Vi_VN' />
         <%@include file="includes/navbar.jsp" %>
 
         <div class="container">
             <div class="d-flex py-3">
-                <h3>Total price: <%= format.format(10000000) %></h3>
+                <h3>Total price: <fmt:formatNumber value='${(total>0)?total:0}' type='currency'/></h3>
                 <a class="mx-3 btn btn-primary" href="#">Check out</a>
             </div>
             <table class="table table-loght">
@@ -81,13 +88,13 @@ if(cart_list != null){
                             <form acction="" method="post" class="form-inline">
                                 <input type="hidden" name="id" value="" class="form-input" />
                                 <div class="form-group d-flex justify-content-between">
-                                    <a class="btn btn-sm btn-decre" href="#"><i class="fas fa-minus-square"></i></a>
+                                    <a class="btn btn-sm btn-decre" href="quantity-inc-dec?action=dec&id=<%= c.getId() %>"><i class="fas fa-minus-square"></i></a>
                                     <input type="text" name="quantity" value="<%= c.getQuantity() %>" class="form-control" readonly="" />
-                                    <a class="btn btn-sm btn-incre" href="#"><i class="fas fa-plus-square"></i></a>
+                                    <a class="btn btn-sm btn-incre" href="quantity-inc-dec?action=inc&id=<%= c.getId() %>"><i class="fas fa-plus-square"></i></a>
                                 </div>
                             </form>
                         </td>
-                        <td><a class="btn btn-sm btn-danger" href="#">Remove</a></td>
+                        <td><a class="btn btn-sm btn-danger" href="remove-from-cart?id=<%= c.getId() %>">Remove</a></td>
                     </tr>  
                     <%}
                         }%>
@@ -98,6 +105,6 @@ if(cart_list != null){
 
 
 
-        <%@include file="includes/footer.jsp" %>
+        <%--<%@include file="includes/footer.jsp" %>--%>
     </body>
 </html>

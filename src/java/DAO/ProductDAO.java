@@ -112,10 +112,11 @@ public class ProductDAO {
                     PreparedStatement statement = con.prepareStatement(sql);
                     statement.setInt(1, item.getId());
                     ResultSet rs = statement.executeQuery();
-                    while(rs.next()){
+                    while (rs.next()) {
                         Cart row = new Cart();
+                        row.setId(rs.getInt("id"));
                         row.setName(rs.getString("name"));
-                        row.setPrice(rs.getInt("price")*item.getQuantity());
+                        row.setPrice(rs.getInt("price") * item.getQuantity());
                         row.setCategory(rs.getString("category"));
                         row.setQuantity(item.getQuantity());
                         products.add(row);
@@ -125,5 +126,28 @@ public class ProductDAO {
         } catch (Exception e) {
         }
         return products;
+    }
+
+    public int getTotalCartPrice(ArrayList<Cart> cartList) {
+        int sum = 0;
+        connectDB db = connectDB.getInstance();
+        String sql = "Select price from products where id=?";
+        
+        try {
+            if (cartList.size() > 0) {
+                for (Cart itemCart : cartList) {
+                    Connection con = db.openConnection();
+                    PreparedStatement statement = con.prepareStatement(sql);
+                    statement.setInt(1, itemCart.getId());
+                    ResultSet rs = statement.executeQuery();
+                    while(rs.next()){
+                        sum += rs.getInt("price") * itemCart.getQuantity();
+                    }
+                }
+            }
+        } catch (Exception e) {
+        }
+
+        return sum;
     }
 }

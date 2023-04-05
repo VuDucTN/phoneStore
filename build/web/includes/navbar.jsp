@@ -27,7 +27,7 @@
             </li>
             
             <li class="nav-item">
-                <a class="nav-link" href="cart.jsp">Cart</a>
+                <a class="nav-link" href="cart.jsp">Cart <span class="badge badge-danger">${cart_list.size()}</span></a>
             </li>
 
 

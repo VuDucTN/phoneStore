@@ -45,10 +45,16 @@ public class AddToCart extends HttpServlet {
                 response.sendRedirect("index.jsp");
             }else{
                 cartList = cart_list;
+                boolean exist = false;
                 for(Cart c:cart_list){
                     if(c.getId() == id){
+                        exist = true;
                       response.sendRedirect("cart.jsp");  
                     }
+                }
+                if(!exist){
+                    cartList.add(cart);
+                    response.sendRedirect("index.jsp");
                 }
             }
         } catch (Exception e) {
