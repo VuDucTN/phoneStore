@@ -4,7 +4,6 @@
  */
 package Sevlet;
 
-import DAO.ProductDAO;
 import DAO.UserDAO;
 import connection.connectDB;
 import java.io.IOException;
@@ -24,8 +23,8 @@ import models.User;
  *
  * @author LENOVO
  */
-@WebServlet(name = "RegisterSevlet", urlPatterns = {"/RegisterSevlet"})
-public class RegisterSevlet extends HttpServlet {
+@WebServlet(name = "ForgotPassword", urlPatterns = {"/ForgotPassword"})
+public class ForgotPassword extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +43,10 @@ public class RegisterSevlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RegisterSevlet</title>");
+            out.println("<title>Servlet ForgotPassword</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RegisterSevlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ForgotPassword at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,31 +64,7 @@ public class RegisterSevlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name = request.getParameter("name");
-        String password = request.getParameter("password");
-        String email = request.getParameter("email");
-        String role = request.getParameter("role");
-        String phone = request.getParameter("phone");
-        connectDB db = connectDB.getInstance();
-        User user = new User(name, password, email, Integer.parseInt(role), phone);
-        HttpSession session = request.getSession();
-        
-        try {
-            if(user.getName() != null){
-                session.setAttribute("failRegister", "Email or Password already!");
-                response.sendRedirect("register.jsp");
-            }else{
-                Connection con = db.openConnection();
-            // add the student to the database
-            UserDAO userDAO = new UserDAO(con);
-            //create a new student object
-            userDAO.Register(user);
-            response.sendRedirect("login.jsp");
-            }
-        } catch (ClassNotFoundException ex) {
-//            session.setAttribute("failRegister", "Something isn't right!");
-//                    response.sendRedirect("login.jsp");
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -103,7 +78,30 @@ public class RegisterSevlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
 
+        connectDB db = connectDB.getInstance();
+
+        try (PrintWriter out = response.getWriter()) {
+            String email = request.getParameter("email");
+            String phone = request.getParameter("phone");
+
+            HttpSession session = request.getSession();
+
+            try {
+                Connection con = db.openConnection();
+                UserDAO userDAO = new UserDAO(con);
+                User user = userDAO.userGetPass(email, phone);
+                if (user != null) {
+                    session.setAttribute("succMsg", user.getPassword());
+                    response.sendRedirect("login.jsp");
+                } else {
+                    response.sendRedirect("forgotPass.jsp");
+                }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     /**

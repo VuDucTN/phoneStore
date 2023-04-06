@@ -16,6 +16,7 @@ public class Cart extends Product{
     }
 
     
+    
     public int getQuantity() {
         return quantity;
     }

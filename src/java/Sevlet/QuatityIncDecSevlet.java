@@ -67,6 +67,8 @@ public class QuatityIncDecSevlet extends HttpServlet {
             
             ArrayList<Cart> cart_list = (ArrayList<Cart>) request.getSession().getAttribute("cart_list");
             
+            
+            
             if(action != null && id >= 1){
                 if(action.equals("inc")){
                     for(Cart c:cart_list){

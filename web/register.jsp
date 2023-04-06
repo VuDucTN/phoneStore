@@ -293,12 +293,19 @@
             -moz-animation-delay: 1s;
             animation-delay: 1s;
         }
-        
+
         .fadeIn.fiveth {
             -webkit-animation-delay: 1.2s;
             -moz-animation-delay: 1.2s;
             animation-delay: 1.2s;
         }
+
+        .fadeIn.sixth {
+            -webkit-animation-delay: 1.4s;
+            -moz-animation-delay: 1.4s;
+            animation-delay: 1.4s;
+        }
+
 
         /* Simple CSS3 Fade-in Animation */
         .underlineHover:after {
@@ -331,17 +338,30 @@
         #icon {
             width:60%;
         }
-        .text-failed{
+        .text-Failed{
             color: red;
             font-family:sans-serif;
             font-weight: initial;
+            display: flex;
+            justify-content: center;
+        }
+        .text-content{
             border: 1px yellow solid;
+            background-color: yellow;
+            width: 300px;
+            height: 50px;
+            padding: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
     </style>
     <body>
         <c:if test="${not empty failRegister}">
-            <p class="text-Failed text-center">${failRegister}</p>
+            <div class="text-Failed">
+                <p class="text-content text-center">${failRegister}</p>
+            </div>
             <c:remove var="failRegister" scope="session"/>
         </c:if>
         <div class="wrapper fadeInDown">
@@ -358,12 +378,14 @@
                     <input type="text" id="login" class="fadeIn second" name="name" placeholder="name">
                     <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
                     <input type="text" id="login" class="fadeIn fourth" name="email" placeholder="email">
-<!--                    <input type="text" id="login" class="fadeIn second" name="role" placeholder="role">-->
+                    <!--                    <input type="text" id="login" class="fadeIn second" name="role" placeholder="role">-->
+                    <input type="text" id="login" class="fadeIn sixth" name="phone" placeholder="phone">
                     <label for="User">Choose a Role:</label>
                     <select name="role" id="login" class="fadeIn fiveth">
                         <option value="0">Customer</option>
                         <option value="1">Boss</option>
                     </select>
+
                     <br><br>
                     <input type="submit" class="fadeIn fourth" value="Register">
                 </form>

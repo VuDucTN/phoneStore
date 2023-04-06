@@ -26,14 +26,35 @@
         <title>Card</title>
         <%@include file="includes/header.jsp" %>
     </head>
+    <style>
+        body{
+            background-color: #d7fefa;
+        }
+        section{
+            background-color: white;
+            border-radius: 20px;
+            max-width: 700px;
+            margin: 20px auto;
+        }
+        form{
+            width: 550px;
+        }
+        
+        .container{
+            background-color: greenyellow;
+            border-radius: 20px 20px 0 0;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
     <body>
-        <%@include file="includes/navbar.jsp" %>
-
-        <div class="container">
-            <h3 class="card-header my-3">Create Product</h3>
+        <%@include file="includes/navbar.jsp" %>   
+        <section>
+            <div class="container">
+            <h3 class="my-3">Create Product</h3>
         </div>
-
-        <section style="margin: 0 auto"  style="width: 100%">
             <c:if test="${not empty succMsg}">
                 <p class="text-success text-center">${succMsg}</p>
                 <c:remove var="succMsg" scope="session"/>
@@ -42,10 +63,10 @@
                 <p class="text-dark text-center">${failedMsg}</p>
                 <c:remove var="failMsg" scope="session"/>
             </c:if>
-            <div  class="d-flex justify-content-center">
+                <div  class="d-flex justify-content-center">
                 <form action="ProductSevlet" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="command" value="ADD" />
-                    <div class="form-group" style="width: 1000px">
+                    <div class="form-group">
                         <label for="exampleInputEmail1">Name Product</label>
                         <input type="text" class="form-control" id="" name="name">
                     </div>
@@ -68,6 +89,5 @@
 
 
 
-        <%@include file="includes/footer.jsp" %>
     </body>
 </html>

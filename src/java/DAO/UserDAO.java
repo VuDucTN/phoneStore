@@ -52,7 +52,7 @@ public class UserDAO {
     
     public void Register(User user) {
         // create sql for insert
-        String sql = "INSERT INTO account_user (name, password ,email, role)\n" + "VALUES (?,?,?,?);";
+        String sql = "INSERT INTO account_user (name, password ,email, role, phone)\n" + "VALUES (?,?,?,?,?);";
         connectDB db = connectDB.getInstance();
 
         Connection con;
@@ -64,6 +64,7 @@ public class UserDAO {
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getEmail());
             statement.setInt(4, user.getRole());
+            statement.setString(5, user.getPhone());
 
             statement.execute();
 
@@ -74,5 +75,30 @@ public class UserDAO {
             
         }
 
+    }
+    
+    public User userGetPass(String email, String phone){
+        User user = null;
+        try{
+            query = "select * from account_user where email=? and phone=?";
+            pst = this.con.prepareStatement(query);
+            pst.setString(1, email);
+            pst.setString(2, phone);
+            rs = pst.executeQuery();
+            
+            if(rs.next()){
+                user = new User();
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                user.setRole(rs.getInt("role"));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+        
+        return user;
     }
 }

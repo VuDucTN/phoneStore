@@ -1,11 +1,10 @@
 <%-- 
-    Document   : login
-    Created on : Mar 31, 2023, 8:21:12 PM
+    Document   : forgotPass
+    Created on : Apr 5, 2023, 8:49:10 PM
     Author     : LENOVO
 --%>
 
 <%@page import="models.User"%>
-<%@page import="connection.connectDB"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% User auth = (User) request.getSession().getAttribute("auth");
@@ -17,9 +16,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login</title>
-        <%@include file="includes/header.jsp" %>
-        
+        <title>JSP Page</title>
         <style>
             
 /* BASIC */
@@ -314,32 +311,10 @@ input[type=password]:placeholder {
   width:60%;
 }
 
-.text-failed{
-    background-color: yellow; 
-    color: red;
-    font-family:sans-serif;
-    font-weight: initial;
-    border: 1px yellow solid;
-}
-.text-success{
-    background-color: yellow; 
-    font-family:sans-serif;
-    font-weight: initial;
-    border: 1px yellow solid;
-    text-align: center;
-}
-
         </style>
     </head>
     <body>
-        <c:if test="${not empty failLogin}">
-                <p class="text-failed text-center">${failLogin}</p>
-                <c:remove var="failLogin" scope="session"/>
-            </c:if>
-        <c:if test="${not empty succMsg}">
-            <p class="text-success text-center"> Password is: <span class="pw" style="color:red">${succMsg}</span></p>
-                <c:remove var="succMsg" scope="session"/>
-            </c:if>
+        
         <div class="wrapper fadeInDown">
             <div id="formContent">
                 <!-- Tabs Titles -->
@@ -350,20 +325,12 @@ input[type=password]:placeholder {
                 </div>
 
                 <!-- Login Form -->
-                <form action="user-login" method="post">
-                    <input type="text" id="login" class="fadeIn second" name="email" placeholder="login">
-                    <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
-                    <input type="submit" class="fadeIn fourth" value="Log In">
+                <form action="ForgotPassword" method="post">
+                    <input type="text" id="login" class="fadeIn second" name="email" placeholder="Email">
+                    <input type="text" id="password" class="fadeIn third" name="phone" placeholder="Phone">
+                    <input type="submit" class="fadeIn fourth" value="Get Pass">
                 </form>
 
-                <!-- Remind Passowrd -->
-                <div id="formFooter">
-                    <a class="underlineHover" href="forgotPass.jsp">Forgot Password?</a>
-                </div>
-                <div id="formFooter">
-                    <a class="underlineHover" href="register.jsp">Register Member</a>
-                </div>
-                
                 <div><a href="index.jsp">Back Home</a></div>
             </div>
         </div>

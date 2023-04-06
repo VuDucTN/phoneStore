@@ -3,13 +3,14 @@
 
     #mycarousel{
         width: 1200px;
-        margin: 0 auto;
+        margin: 10px auto;
         align-content: center;
     }
     .carousel__img {
         width: 1200px;
         height: 70vh;
         object-fit: scale;
+        border-radius: 20px; 
     }
 </style>
 <!--Carousel-->

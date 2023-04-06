@@ -22,20 +22,19 @@
     if (auth != null) {
         request.setAttribute("auth", auth);
     }
-    
+
     ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart_list");
     List<Cart> cartProduct = null;
-        
-if(cart_list != null){
-    ProductDAO pdao = new ProductDAO();
-    cartProduct = pdao.getCarts(cart_list);
-    int total = pdao.getTotalCartPrice(cart_list);
-    request.setAttribute("cart_list", cart_list);
-    request.setAttribute("total", total);
+    
+    
+    if (cart_list != null) {
+        ProductDAO pdao = new ProductDAO();
+        cartProduct = pdao.getCarts(cart_list);
+        int total = pdao.getTotalCartPrice(cart_list);
+        request.setAttribute("cart_list", cart_list);
+        request.setAttribute("total", total);
     }
-    
-    
-    
+
     Locale locale = new Locale("vi", "VN");
     NumberFormat format = NumberFormat.getCurrencyInstance(locale);
     format.setRoundingMode(RoundingMode.HALF_UP);
@@ -57,52 +56,69 @@ if(cart_list != null){
             box-shadow: none;
             font-size: 25px;
         }
+        body{
+            background-color: #d7fefa;
+        }
+
     </style>
     <body>
         <fmt:setLocale value='Vi_VN' />
         <%@include file="includes/navbar.jsp" %>
 
-        <div class="container">
-            <div class="d-flex py-3">
-                <h3>Total price: <fmt:formatNumber value='${(total>0)?total:0}' type='currency'/></h3>
-                <a class="mx-3 btn btn-primary" href="#">Check out</a>
-            </div>
+        <div class="container" style="margin-top:25px ; border-radius:12px ; background-color: white;">
+                <h3 class="card-header my-3">Your Cart</h3>
             <table class="table table-loght">
                 <thead>
                     <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Category</th>
                         <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
                         <th scope="col">Buy now</th>
                         <th scope="col">Cancel</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <% if(cart_list != null){
-                        for(Cart c:cartProduct){%>
-                        <tr>
+                    <% if (cart_list != null) {
+                            for (Cart c : cartProduct) { 
+                    %>
+                            
+                    <tr>
                         <td><%= c.getName()%></td>
                         <td><%= c.getCategory()%></td>
-                        <td><%= format.format(c.getPrice()) %></td>
+                        <td><%= format.format(c.getPrice())%></td>
                         <td>
                             <form acction="" method="post" class="form-inline">
                                 <input type="hidden" name="id" value="" class="form-input" />
                                 <div class="form-group d-flex justify-content-between">
-                                    <a class="btn btn-sm btn-decre" href="quantity-inc-dec?action=dec&id=<%= c.getId() %>"><i class="fas fa-minus-square"></i></a>
-                                    <input type="text" name="quantity" value="<%= c.getQuantity() %>" class="form-control" readonly="" />
-                                    <a class="btn btn-sm btn-incre" href="quantity-inc-dec?action=inc&id=<%= c.getId() %>"><i class="fas fa-plus-square"></i></a>
+                                    <a class="btn btn-sm btn-decre" href="quantity-inc-dec?action=dec&id=<%= c.getId()%>"><i class="fas fa-minus-square"></i></a>
+                                    <input type="text" name="quantity" value="<%= c.getQuantity()%>" class="form-control" readonly="" />
+                                    <a class="btn btn-sm btn-incre" href="quantity-inc-dec?action=inc&id=<%= c.getId()%>"><i class="fas fa-plus-square"></i></a>
                                 </div>
                             </form>
                         </td>
-                        <td><a class="btn btn-sm btn-danger" href="remove-from-cart?id=<%= c.getId() %>">Remove</a></td>
+                        <td>
+                            <c:if test="${sessionScope.auth != null}" >
+                                <a class="btn btn-sm btn-primary" href="#">Buy Now</a>
+                            </c:if>
+                            <c:if test="${sessionScope.auth == null }" >
+                                <a class="" href="login.jsp">Login to Buy</a>
+                            </c:if>
+                        </td>
+                        <td><a class="btn btn-sm btn-danger" href="remove-from-cart?id=<%= c.getId()%>">Remove</a></td>
                     </tr>  
                     <%}
                         }%>
-                        
+
                 </tbody>
             </table>
+            <hr/>
+            <div class="d-flex justify-content-end">
+                <a class="mx-2 btn btn-primary" href="#">Check out</a>
+                <span>Total price:</span> <h5 style="margin-left:5px ; font-weight: bold"><fmt:formatNumber value='${(total>0)?total:0}' type='currency'/></h5>
+            </div>
         </div>
-
+            
 
 
         <%--<%@include file="includes/footer.jsp" %>--%>

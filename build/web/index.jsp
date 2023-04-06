@@ -46,7 +46,7 @@
     </head>
     <style>
         body{
-            background-color: lightgoldenrodyellow;
+            background-color: #d7fefa;
         }
     </style>
     </<body>
@@ -56,18 +56,18 @@
 
 
         <!--Cart Product-->
-        <div class="container">
-            <div class="card-header my-3" style="font-weight: bold">New Products</div>
+        <div class="container" style="margin-top:5px; border-radius: 20px; background-color: gold">
+            <div class="card-header my-3" style="font-weight: bold; border-radius: 0 0 16px 16px;  background-color: orange; text-align: center; font-weight: bold; font-size: 25px; color: white">New Products</div>
             <div class="row">
                 <fmt:setLocale value='Vi_VN' />
                 <c:forEach var="tempProduct" items="${productlist}">
-                <div class="col-md-3 my-3" >
-                    <div class="card w-100" style="width: 18rem;">
-                        <img src="images/${tempProduct.image}" class="card-img-top" style="max-width: 250px; max-height: 260px;" alt="iphone" />
-                        <div class="card-body">
-                            <h5 class="card-title">${tempProduct.name}</h5>
-                            <h6 class="price" style="color: red; font-weight: bold"><fmt:formatNumber value='${tempProduct.price}' type='currency'/></h6>
-                            <h6 class="category">Category: ${tempProduct.category}</h6>
+                <div class="col-md-3 my-3">
+                    <div class="card w-100" style="background-color: white; border-radius: 16px; ">
+                        <img src="images/${tempProduct.image}" class="card-img-top" style="max-height:230px;object-fit: scale;border-radius:16px 16px 0 0;" alt="iphone" />
+                        <div class="card-body" style="height: 230px">
+                            <h6 class="card-title">${tempProduct.name}</h6>
+                            <p class="category">Category: ${tempProduct.category}</p>
+                            <h5 class="price" style="color: red; font-weight: bold"><fmt:formatNumber value='${tempProduct.price}' type='currency'/></h5>
                             <!--                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
                             <div class="mt-3 d-flex justify-content-between">
                                 <a href="add-to-cart?id=${tempProduct.id}" class="btn btn-outline-primary">Add to cart</a>
@@ -78,9 +78,9 @@
                             </div>
                             <hr/>
                             <div class="d-flex justify-content-around">
-                                <span><a href="viewsproduct.jsp" class="">views</a></span>
+                                <span><a href="viewsproduct.jsp" class="" style="color: gray">Views</a></span>
                                 <c:if test="${sessionScope.auth.role == 1}">
-                                    <span><a href="viewsproduct.jsp" class="">edit</a></span>
+                                    <span><a href="viewsproduct.jsp" class="">Edit</a></span>
                                 </c:if>  
                             </div>        
                         </div>

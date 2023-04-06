@@ -315,10 +315,18 @@ input[type=password]:placeholder {
 }
 
 .text-failed{
+    background-color: yellow; 
     color: red;
     font-family:sans-serif;
     font-weight: initial;
     border: 1px yellow solid;
+}
+.text-success{
+    background-color: yellow; 
+    font-family:sans-serif;
+    font-weight: initial;
+    border: 1px yellow solid;
+    text-align: center;
 }
 
         </style>
@@ -327,6 +335,10 @@ input[type=password]:placeholder {
         <c:if test="${not empty failLogin}">
                 <p class="text-failed text-center">${failLogin}</p>
                 <c:remove var="failLogin" scope="session"/>
+            </c:if>
+        <c:if test="${not empty succMsg}">
+            <p class="text-success text-center"> Password is: <span class="pw" style="color:red">${succMsg}</span></p>
+                <c:remove var="succMsg" scope="session"/>
             </c:if>
         <div class="wrapper fadeInDown">
             <div id="formContent">
@@ -346,7 +358,7 @@ input[type=password]:placeholder {
 
                 <!-- Remind Passowrd -->
                 <div id="formFooter">
-                    <a class="underlineHover" href="#">Forgot Password?</a>
+                    <a class="underlineHover" href="forgotPass.jsp">Forgot Password?</a>
                 </div>
                 <div id="formFooter">
                     <a class="underlineHover" href="register.jsp">Register Member</a>
@@ -356,6 +368,5 @@ input[type=password]:placeholder {
             </div>
         </div>
 
-        <%@include file="includes/footer.jsp" %>
     </body>
 </html>

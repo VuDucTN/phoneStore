@@ -16,12 +16,11 @@
 ></script>
 
 <!-- Remove the container if you want to extend the Footer to full width. -->
-<div class="container my-5">
+<div class="">
     <!-- Footer -->
     <footer
         class="text-center text-lg-start text-white"
-        style="background-color: #3e4551"
-        >
+        style="background-color: #3e4551; margin-top: 15px">
         <!-- Grid container -->
         <div class="container p-4 pb-0">
             <!-- Section: Links -->
@@ -132,7 +131,7 @@
             <hr class="mb-4" />
 
             <!-- Section: Social media -->
-            <section class="mb-4 text-center">
+            <section class="mb-3 text-center">
                 <!-- Facebook -->
                 <a
                     class="btn btn-outline-light btn-floating m-1"
@@ -191,8 +190,7 @@
             style="background-color: rgba(0, 0, 0, 0.2)"
             >
             © 2020 Copyright:
-            <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a
-            >
+            <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
         </div>
         <!-- Copyright -->
     </footer>
