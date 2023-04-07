@@ -75,17 +75,14 @@ public class RegisterSevlet extends HttpServlet {
         HttpSession session = request.getSession();
         
         try {
-            if(user.getName() != null){
-                session.setAttribute("failRegister", "Email or Password already!");
-                response.sendRedirect("register.jsp");
-            }else{
-                Connection con = db.openConnection();
+            Connection con = db.openConnection();
             // add the student to the database
             UserDAO userDAO = new UserDAO(con);
             //create a new student object
             userDAO.Register(user);
             response.sendRedirect("login.jsp");
-            }
+            session.setAttribute("succRegister", "Register Success");
+            
         } catch (ClassNotFoundException ex) {
 //            session.setAttribute("failRegister", "Something isn't right!");
 //                    response.sendRedirect("login.jsp");

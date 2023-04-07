@@ -340,6 +340,10 @@ input[type=password]:placeholder {
             <p class="text-success text-center"> Password is: <span class="pw" style="color:red">${succMsg}</span></p>
                 <c:remove var="succMsg" scope="session"/>
             </c:if>
+            <c:if test="${not empty succRegister}">
+            <p class="text-success text-center"><span class="pw" style="color:red">${succRegister}</span></p>
+                <c:remove var="succRegister" scope="session"/>
+            </c:if>
         <div class="wrapper fadeInDown">
             <div id="formContent">
                 <!-- Tabs Titles -->
