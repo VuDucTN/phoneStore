@@ -4,28 +4,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/src/java/Sevlet/ProductSevlet.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/web/create_product.jsp</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/web/forgotPass.jsp</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/src/java/Sevlet/RegisterSevlet.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/src/java/DAO/ProductDAO.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/src/java/models/Product.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/src/java/Sevlet/AddToCart.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/web/register.jsp</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/src/java/Sevlet/LogoutSevlet.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/web/includes/header.jsp</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/web/includes/footer.jsp</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/src/java/Sevlet/LoginSevlet.java</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/web/includes/navbar.jsp</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/web/cart.jsp</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/src/java/Sevlet/RemoveFromCartSevlet.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/src/java/Sevlet/QuatityIncDecSevlet.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/src/java/DAO/ProductDAO.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/src/java/models/Product.java</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/web/includes/carousel.jsp</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/src/java/models/User.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/web/login.jsp</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/web/index.jsp</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/src/java/Sevlet/ForgotPassword.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/src/java/models/Cart.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/src/java/DAO/UserDAO.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/MyPhoneStore/web/viewsproduct.jsp</file>
         </group>
     </open-files>
 </project-private>

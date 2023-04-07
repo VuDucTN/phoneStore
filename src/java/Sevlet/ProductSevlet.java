@@ -128,7 +128,6 @@ public class ProductSevlet extends HttpServlet {
             ProductDAO productDAO = new ProductDAO();
             HttpSession session = request.getSession();
             boolean f = productDAO.addProduct(product);
-            
 
             if (f) {
                 String path = getServletContext().getRealPath("") + "images";
@@ -136,7 +135,7 @@ public class ProductSevlet extends HttpServlet {
                 part.write(path + File.separator + fileName);
                 session.setAttribute("succMsg", "Sucessfully");
                 response.sendRedirect("create_product.jsp");
-            }else{
+            } else {
                 session.setAttribute("failMsg", "Fail Upload");
                 response.sendRedirect("create_product.jsp");
             }
@@ -158,15 +157,28 @@ public class ProductSevlet extends HttpServlet {
     }// </editor-fold>
 
     private void listProducts(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-        dispatcher.forward(request, response);
+        ProductDAO productDAO = new ProductDAO();
+        List<Product> products = productDAO.getAllProducts();
+        request.setAttribute("productlist", products);
         //read student info from the form
+        request.getRequestDispatcher("index.jsp").forward(request, response);
 
     }
 
-
     private void loadProduct(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
+        //read student id from the form data
+        String theProductId = request.getParameter("productId");
+
+        //get student from the database
+        Product product = new ProductDAO().getProduct(theProductId);
+        //place student in the request attribute
+        Product pd = (Product) product;
+        request.setAttribute("THE_PRODUCT", product);
+
+        //send to jsp page: update-student-form.jsp
+        RequestDispatcher dispatcher
+                = request.getRequestDispatcher("viewsproduct.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void updateProduct(HttpServletRequest request, HttpServletResponse response) {

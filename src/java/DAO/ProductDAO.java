@@ -86,19 +86,47 @@ public class ProductDAO {
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                String name = rs.getString(2);
+                String name = rs.getString(2); 
                 int price = rs.getInt(3);
-                String category = rs.getString(4);;
-                product = new Product(id, name, price, category);
+                String image = rs.getString(4);
+                String category = rs.getString(5);;
+                product = new Product(id, name, price,image, category);
             }
             rs.close();
             statement.close();
             con.close();
         } catch (Exception ex) {
-            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE,
-                    null, ex);
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE,null, ex);
         }
         return product;
+    }
+    
+    public List<Product> searchNameProducts(String txtSearch) {
+        List<Product> list = new ArrayList<>();
+        connectDB db = connectDB.getInstance();
+        String sql = "select * from products where [name] like ?";
+        Product product = null;
+
+        try {
+            Connection con = db.openConnection();
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setString(1,"%"+ txtSearch+"%");
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                list.add(new Product(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5)
+                ));
+            }
+            rs.close();
+            statement.close();
+            con.close();
+        } catch (Exception ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE,null, ex);
+        }
+        return list;
     }
 
     public List<Cart> getCarts(ArrayList<Cart> carts) {

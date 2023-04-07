@@ -4,27 +4,23 @@
  */
 package Sevlet;
 
-import DAO.UserDAO;
-import connection.connectDB;
+import DAO.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import models.User;
+import models.Product;
 
 /**
  *
  * @author LENOVO
  */
-@WebServlet(name = "ForgotPassword", urlPatterns = {"/ForgotPassword"})
-public class ForgotPassword extends HttpServlet {
+@WebServlet(name = "SearchSevlet", urlPatterns = {"/search"})
+public class SearchSevlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +39,10 @@ public class ForgotPassword extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ForgotPassword</title>");
+            out.println("<title>Servlet SearchSevlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ForgotPassword at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SearchSevlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,7 +60,7 @@ public class ForgotPassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
     /**
@@ -79,30 +75,12 @@ public class ForgotPassword extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        connectDB db = connectDB.getInstance();
-
-        try (PrintWriter out = response.getWriter()) {
-            String email = request.getParameter("email");
-            String phone = request.getParameter("phone");
-
-            HttpSession session = request.getSession();
-
-            try {
-                Connection con = db.openConnection();
-                UserDAO userDAO = new UserDAO(con);
-                User user = userDAO.userGetPass(email, phone);
-                if (user != null) {
-                    session.setAttribute("succMsg", user.getPassword());
-                    response.sendRedirect("login.jsp");
-                } else {
-                    session.setAttribute("Fail", "Nhập sai gì rồi đó!");
-                    response.sendRedirect("forgotPass.jsp");
-                }
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        String txtSearch = request.getParameter("txt");
+        ProductDAO pDAO = new ProductDAO();
+        List<Product> list = pDAO.searchNameProducts(txtSearch);
+        
+        request.setAttribute("productlist", list);
+        request.getRequestDispatcher("search_index.jsp").forward(request, response);
     }
 
     /**

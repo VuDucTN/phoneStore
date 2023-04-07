@@ -2,12 +2,13 @@
 <style>
 
     #mycarousel{
-        width: 1200px;
+        width: 95%;
         margin: 10px auto;
         align-content: center;
+        border-radius: 50px; 
     }
     .carousel__img {
-        width: 1200px;
+        width: 1370px;
         height: 70vh;
         object-fit: scale;
         border-radius: 20px; 
@@ -18,15 +19,21 @@
     <div class="carousel slide" data-ride="carousel">
         <div class="carousel-inner " >
             <div class="carousel-item active">
-                <img class="carousel__img" src="https://didongviet.vn/dchannel/wp-content/uploads/2019/02/banner-bai-viet-s10.jpg" alt="First slide">
+                <img class="carousel__img" src="https://img.us.news.samsung.com/us/wp-content/uploads/2022/08/10113927/M_Newsroom_banner_fold4x2.jpg" alt="First slide">
             </div>
 
             <div class="carousel-item">
-                <img class="carousel__img" src="https://au2-images.shop.samsung.com/medias/Banner-2000x600-3E-1-.jpg?context=bWFzdGVyfGltYWdlc3w1Nzg5NDd8aW1hZ2UvanBlZ3xpbWFnZXMvaDMzL2hlNS85MjUxODM4ODUzMTUwLmpwZ3wzNGI5ZmYxZjU3ZWViMjIzNDg5YzI1NTM5MzkyOGRmYzQ3MzFmOGJkODk1YWE5OWM5MDJkOTRmOTQ1MDg3NTA1" alt="Second slide">
+                <img class="carousel__img" src="https://i.ytimg.com/vi/wYjVP9eoM-c/maxresdefault.jpg" alt="Second slide">
             </div>
 
             <div class="carousel-item">
-                <img class="carousel__img" src="https://thietkehaithanh.com/wp-content/uploads/2019/06/huong-dan-thiet-ke-banner-dien-thoai-bang-photoshop.jpg" alt="Third slide">
+                <img class="carousel__img" src="https://m.media-amazon.com/images/S/aplus-media/vc/1e45fbd4-ea69-4537-9ca7-a9a9d62fc59f.__CR0,0,1464,600_PT0_SX1464_V1___.jpg" alt="Third slide">
+            </div>
+            <div class="carousel-item">
+                <img class="carousel__img" src="https://xiaomithanhhoa.vn/wp-content/uploads/2019/08/banner-k20-web.jpg" alt="Third slide">
+            </div>
+            <div class="carousel-item">
+                <img class="carousel__img" src="https://www.trustedreviews.com/wp-content/uploads/sites/54/2022/04/realme-c31-1024x529.jpg" alt="Third slide">
             </div>
         </div>
 

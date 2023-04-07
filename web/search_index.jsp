@@ -24,10 +24,6 @@
         request.setAttribute("auth", auth);
     }
 
-    ProductDAO productDAO = new ProductDAO();
-    List<Product> products = productDAO.getAllProducts();
-    request.setAttribute("productlist", products);
-
     Locale locale = new Locale("vi", "VN");
     NumberFormat format = NumberFormat.getCurrencyInstance(locale);
     format.setRoundingMode(RoundingMode.HALF_UP);
@@ -60,8 +56,7 @@
         <%@include file="includes/navbar.jsp" %>
 
         <%@include file="includes/carousel.jsp" %>
-
-
+        
         <!--Cart Product-->
         <div class="container" style="margin-top:5px; border-radius: 20px; background-color: gold">
             <div class="card-header my-3" style="font-weight: bold; border-radius: 0 0 16px 16px;  background-color: orange; text-align: center; font-weight: bold; font-size: 25px; color: white">New Products</div>

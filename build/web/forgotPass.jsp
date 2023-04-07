@@ -311,10 +311,31 @@ input[type=password]:placeholder {
   width:60%;
 }
 
+.Failed{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.text-failed{
+    width: 250px; 
+    height: 50px;
+    background-color: red; 
+    font-family:sans-serif;
+    font-weight: initial;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
         </style>
     </head>
     <body>
-        
+        <c:if test="${not empty Fail}">
+            <div class="Failed">
+                <p class="text-failed text-center">${Fail}</p>
+            </div>
+                <c:remove var="Fail" scope="session"/>
+            </c:if>
         <div class="wrapper fadeInDown">
             <div id="formContent">
                 <!-- Tabs Titles -->

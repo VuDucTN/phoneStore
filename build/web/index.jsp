@@ -48,6 +48,13 @@
         body{
             background-color: #d7fefa;
         }
+        img{
+            transition: all 0.5s ease-in-out;
+        }
+        img:hover{
+            transform: scale(1.5);
+        }
+        
     </style>
     </<body>
         <%@include file="includes/navbar.jsp" %>
@@ -63,8 +70,8 @@
                 <c:forEach var="tempProduct" items="${productlist}">
                 <div class="col-md-3 my-3">
                     <div class="card w-100" style="background-color: white; border-radius: 16px; ">
-                        <img src="images/${tempProduct.image}" class="card-img-top" style="max-height:230px;object-fit: scale;border-radius:16px 16px 0 0;" alt="iphone" />
-                        <div class="card-body" style="height: 230px">
+                        <img src="images/${tempProduct.image}" class="card-img-top" style=" padding-top: 10px; height:230px;border-radius:16px;" alt="image" />
+                        <div class="card-body" style="height: 250px">
                             <h6 class="card-title">${tempProduct.name}</h6>
                             <p class="category">Category: ${tempProduct.category}</p>
                             <h5 class="price" style="color: red; font-weight: bold"><fmt:formatNumber value='${tempProduct.price}' type='currency'/></h5>
@@ -77,8 +84,12 @@
                                 <%} %>
                             </div>
                             <hr/>
+                            <c:url var="tempLink" value="ProductSevlet">
+                            <c:param name="command" value="LOAD"></c:param>
+                            <c:param name="productId" value="${tempProduct.id}"></c:param>
+                            </c:url>
                             <div class="d-flex justify-content-around">
-                                <span><a href="viewsproduct.jsp" class="" style="color: gray">Views</a></span>
+                                <span><a href="${tempLink}" class="" style="color: gray">Views</a></span>
                                 <c:if test="${sessionScope.auth.role == 1}">
                                     <span><a href="viewsproduct.jsp" class="">Edit</a></span>
                                 </c:if>  
