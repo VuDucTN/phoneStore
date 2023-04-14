@@ -8,6 +8,7 @@ import connection.connectDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -86,21 +87,43 @@ public class ProductDAO {
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                String name = rs.getString(2); 
+                String name = rs.getString(2);
                 int price = rs.getInt(3);
                 String image = rs.getString(4);
                 String category = rs.getString(5);;
-                product = new Product(id, name, price,image, category);
+                product = new Product(id, name, price, image, category);
             }
             rs.close();
             statement.close();
             con.close();
         } catch (Exception ex) {
-            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE,null, ex);
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return product;
     }
-    
+
+    public Product getSingleProduct(int id) {
+        Product row = null;
+        connectDB db = connectDB.getInstance();
+        String sql = "Select * from products where id=?";
+        try {
+            Connection con = db.openConnection();
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                row = new Product();
+                row.setId(rs.getInt("id"));
+                row.setName(rs.getString("name"));
+                row.setCategory(rs.getString("category"));
+                row.setPrice(rs.getInt("price"));
+                row.setImgae(rs.getString("image"));
+            }
+        } catch (Exception e) {
+        }
+        return row;
+    }
+
     public List<Product> searchNameProducts(String txtSearch) {
         List<Product> list = new ArrayList<>();
         connectDB db = connectDB.getInstance();
@@ -110,7 +133,7 @@ public class ProductDAO {
         try {
             Connection con = db.openConnection();
             PreparedStatement statement = con.prepareStatement(sql);
-            statement.setString(1,"%"+ txtSearch+"%");
+            statement.setString(1, "%" + txtSearch + "%");
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 list.add(new Product(rs.getInt(1),
@@ -124,7 +147,7 @@ public class ProductDAO {
             statement.close();
             con.close();
         } catch (Exception ex) {
-            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE,null, ex);
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
@@ -160,7 +183,7 @@ public class ProductDAO {
         int sum = 0;
         connectDB db = connectDB.getInstance();
         String sql = "Select price from products where id=?";
-        
+
         try {
             if (cartList.size() > 0) {
                 for (Cart itemCart : cartList) {
@@ -168,7 +191,7 @@ public class ProductDAO {
                     PreparedStatement statement = con.prepareStatement(sql);
                     statement.setInt(1, itemCart.getId());
                     ResultSet rs = statement.executeQuery();
-                    while(rs.next()){
+                    while (rs.next()) {
                         sum += rs.getInt("price") * itemCart.getQuantity();
                     }
                 }
@@ -177,5 +200,49 @@ public class ProductDAO {
         }
 
         return sum;
+    }
+
+    public void updateProduct(Product product) {
+        String sql = " UPDATE products\n" + "SET name=?, price=?, category = ?\n" + "WHERE id = ?";
+        connectDB db = connectDB.getInstance();
+        Connection con;
+        try {
+            con = db.openConnection();
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setString(1, product.getName());
+            statement.setInt(2, product.getPrice());
+            statement.setString(3, product.getCategory());
+            statement.setInt(4, product.getId());
+            statement.execute();
+            statement.close();
+            con.close();
+        } catch (Exception ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE,
+                    null, ex);
+        }
+    }
+
+    public void deleteProduct(String idd) {
+        connectDB db = connectDB.getInstance();
+        Connection con;
+        try {
+            con = db.openConnection();
+            String sql = "DELETE FROM products WHERE id=?";
+            PreparedStatement statement = con.prepareStatement(sql);
+            int id = Integer.parseInt(idd);
+            // set parameter in the sql
+            statement.setInt(1, id);
+            // execute the sql
+            statement.execute();
+            con.close();
+            statement.close();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // prepare the statement in order to excute the sql comments
+
+        // convert String id to int id
     }
 }

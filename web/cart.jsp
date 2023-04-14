@@ -25,8 +25,7 @@
 
     ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart_list");
     List<Cart> cartProduct = null;
-    
-    
+
     if (cart_list != null) {
         ProductDAO pdao = new ProductDAO();
         cartProduct = pdao.getCarts(cart_list);
@@ -66,7 +65,7 @@
         <%@include file="includes/navbar.jsp" %>
 
         <div class="container" style="margin-top:25px ; border-radius:12px ; background-color: white;">
-                <h3 class="card-header my-3">Your Cart</h3>
+            <h3 class="card-header my-3">Your Cart</h3>
             <table class="table table-loght">
                 <thead>
                     <tr>
@@ -74,36 +73,33 @@
                         <th scope="col">Category</th>
                         <th scope="col">Price</th>
                         <th scope="col">Quantity</th>
-                        <th scope="col">Buy now</th>
                         <th scope="col">Cancel</th>
                     </tr>
                 </thead>
                 <tbody>
                     <% if (cart_list != null) {
-                            for (Cart c : cartProduct) { 
+                            for (Cart c : cartProduct) {
                     %>
-                            
+
                     <tr>
                         <td><%= c.getName()%></td>
                         <td><%= c.getCategory()%></td>
                         <td><%= format.format(c.getPrice())%></td>
                         <td>
-                            <form acction="" method="post" class="form-inline">
-                                <input type="hidden" name="id" value="" class="form-input" />
+                            <form action="order" method="get" class="form-inline">
+                                <input type="hidden" name="id" value="<%= c.getId() %>" class="form-input" />
                                 <div class="form-group d-flex justify-content-between">
                                     <a class="btn btn-sm btn-decre" href="quantity-inc-dec?action=dec&id=<%= c.getId()%>"><i class="fas fa-minus-square"></i></a>
-                                    <input type="text" name="quantity" value="<%= c.getQuantity()%>" class="form-control" readonly="" />
+                                    <input type="text" style="width:50px " name="quantity" value="<%= c.getQuantity()%>" class="form-control" readonly="" />
                                     <a class="btn btn-sm btn-incre" href="quantity-inc-dec?action=inc&id=<%= c.getId()%>"><i class="fas fa-plus-square"></i></a>
                                 </div>
+                                <c:if test="${sessionScope.auth != null}" >
+                                    <button type="submit" class="btn btn-sm btn-primary" >Buy Now</button>
+                                </c:if>
+                                <c:if test="${sessionScope.auth == null }" >
+                                    <a class="" href="login.jsp">Login to Buy</a>
+                                </c:if>
                             </form>
-                        </td>
-                        <td>
-                            <c:if test="${sessionScope.auth != null}" >
-                                <a class="btn btn-sm btn-primary" href="#">Buy Now</a>
-                            </c:if>
-                            <c:if test="${sessionScope.auth == null }" >
-                                <a class="" href="login.jsp">Login to Buy</a>
-                            </c:if>
                         </td>
                         <td><a class="btn btn-sm btn-danger" href="remove-from-cart?id=<%= c.getId()%>">Remove</a></td>
                     </tr>  
@@ -113,12 +109,14 @@
                 </tbody>
             </table>
             <hr/>
-            <div class="d-flex justify-content-end">
-                <a class="mx-2 btn btn-primary" href="#">Check out</a>
+            <div class="d-flex justify-content-end" style="align-items: center; align-content: center">          
                 <span>Total price:</span> <h5 style="margin-left:5px ; font-weight: bold"><fmt:formatNumber value='${(total>0)?total:0}' type='currency'/></h5>
+                <c:if test="${sessionScope.auth != null }" >
+                    <a style=" margin-bottom: 10px" class="mx-2 btn btn-primary" href="buyall">Buy All Products</a>
+                </c:if>
             </div>
         </div>
-            
+
 
 
         <%--<%@include file="includes/footer.jsp" %>--%>

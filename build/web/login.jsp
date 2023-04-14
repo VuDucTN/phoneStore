@@ -341,7 +341,7 @@ input[type=password]:placeholder {
                 <c:remove var="succMsg" scope="session"/>
             </c:if>
             <c:if test="${not empty succRegister}">
-            <p class="text-success text-center"><span class="pw" style="color:red">${succRegister}</span></p>
+            <p class="text-success text-center"><span class="pw" style="color:green">${succRegister}</span></p>
                 <c:remove var="succRegister" scope="session"/>
             </c:if>
         <div class="wrapper fadeInDown">

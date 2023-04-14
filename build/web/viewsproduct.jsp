@@ -40,7 +40,7 @@
                     <img src="images/${THE_PRODUCT.image}" alt="image"></img>
                     <div class="row d-flex justify-content-center" style=" margin-top: 20px">
                         <a class="nav-link btn btn btn-warning" style="color:white; margin-right: 10px" role="button" href="add-to-cart?id=${THE_PRODUCT.id}">Add to cart</a>                    
-                        <a class="nav-link btn btn btn-primary" style="color:white" role="button" href="login.jsp">Buy Now</a>
+                        <a class="nav-link btn btn btn-primary" style="color:white" role="button" href="order?quantity=1&id=${THE_PRODUCT.id}">Buy Now</a>
                     </div>
                 </div>
                 <div class="col-lg-5">

@@ -54,13 +54,24 @@
                 <tbody>
                     <fmt:setLocale value='Vi_VN' />
                     <c:forEach var="tempProduct" items="${productlist}">
+                        <c:url var="tempUpdate" value="ProductSevlet">
+                            <c:param name="command" value="LOAD_UPDATE"></c:param>
+                            <c:param name="productId" value="${tempProduct.id}"></c:param>
+                            </c:url>
+                        <c:url var="deleteLink" value="ProductSevlet">
+                                <c:param name="command" value="DELETE"
+                                         ></c:param>
+                                <c:param name="productId" value="${tempProduct.id}"
+                                         ></c:param>
+
+                            </c:url>
                         <tr>
                             <td><p>${tempProduct.name}</p></td>
                             <td><img src="images/${tempProduct.image}" style="width:50px; height: 50px "></img></td>
                             <td>${tempProduct.category}</td>
                             <td><fmt:formatNumber value='${tempProduct.price}' type='currency'/></td>
-                            <td><a class="btn btn-sm btn-success" href="">Edit</a></td>
-                            <td><a class="btn btn-sm btn-danger" href="">Remove</a></td>
+                            <td><a class="btn btn-sm btn-success" href="${tempUpdate}">Edit</a></td>
+                            <td><a class="btn btn-sm btn-danger" href="${deleteLink}">Remove</a></td>
                         </tr>
                     </c:forEach>
 

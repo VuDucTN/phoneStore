@@ -88,6 +88,9 @@ public class ProductSevlet extends HttpServlet {
                 case "LOAD":
                     loadProduct(request, response);
                     break;
+                case "LOAD_UPDATE":
+                    loadProductUpdate(request, response);
+                    break;
                 case "UPDATE":
                     updateProduct(request, response);
                     break;
@@ -181,12 +184,43 @@ public class ProductSevlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void updateProduct(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private void loadProductUpdate(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        //read student id from the form data
+        String theProductId = request.getParameter("productId");
+
+        //get student from the database
+        Product product = new ProductDAO().getProduct(theProductId);
+        //place student in the request attribute
+        Product pd = (Product) product;
+        request.setAttribute("THE_PRODUCT_UPDATE", product);
+
+        //send to jsp page: update-student-form.jsp
+        RequestDispatcher dispatcher
+                = request.getRequestDispatcher("edit.jsp");
+        dispatcher.forward(request, response);
     }
 
-    private void deleteProduct(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private void updateProduct(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int id = Integer.parseInt(request.getParameter("productId"));
+        String name = request.getParameter("name");
+        String price = request.getParameter("price");
+        String category = request.getParameter("category");
+        //create a new student object
+        Product product = new Product(id, name, Integer.parseInt(price), category);
+
+        //perform update on database
+        new ProductDAO().updateProduct(product);
+        //send them back to the "list student" page
+        response.sendRedirect("managerProduct.jsp");
+    }
+
+    private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String theProductId = request.getParameter("productId");
+
+        // delete student from the database
+        new ProductDAO().deleteProduct(theProductId);
+        // send them back to the "list student" pages
+        response.sendRedirect("managerProduct.jsp");// Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

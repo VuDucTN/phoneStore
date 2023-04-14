@@ -80,7 +80,7 @@
                                 <a href="add-to-cart?id=${tempProduct.id}" class="btn btn-outline-primary">Add to cart</a>
                                 
                                 <% if (auth != null) { %>
-                                <a href="#" class="btn btn-outline-warning">Buy Now</a>
+                                <a href="order?quantity=1&id=${tempProduct.id}" class="btn btn-outline-warning">Buy Now</a>
                                 <%} %>
                             </div>
                             <hr/>
@@ -88,10 +88,14 @@
                             <c:param name="command" value="LOAD"></c:param>
                             <c:param name="productId" value="${tempProduct.id}"></c:param>
                             </c:url>
+                            <c:url var="tempUpdate" value="ProductSevlet">
+                            <c:param name="command" value="LOAD_UPDATE"></c:param>
+                            <c:param name="productId" value="${tempProduct.id}"></c:param>
+                            </c:url>
                             <div class="d-flex justify-content-around">
                                 <span><a href="${tempLink}" class="" style="color: gray">Views</a></span>
                                 <c:if test="${sessionScope.auth.role == 1}">
-                                    <span><a href="viewsproduct.jsp" class="">Edit</a></span>
+                                    <span><a href="${tempUpdate}" class="">Edit</a></span>
                                 </c:if>  
                             </div>        
                         </div>
